@@ -103,17 +103,31 @@ a.login-changelogs {
 }
 
 /* DPS baseline: an operational panel, not a marketing dashboard. */
-:root {
+/* `html:root` deliberately outranks the later legacy `:root` token sheet. */
+html:root {
     --dps-navy: #151577;
     --dps-green: #32b561;
+    --dps-green-soft: #e8f6ed;
+    --bg-primary: #f7f9fb;
+    --bg-secondary: #ffffff;
+    --bg-muted: #f8faf9;
+    --bg-sidebar: #ffffff;
+    --bg-sidebar-item: transparent;
+    --bg-hover: #f0f6f2;
+    --border-color: #e1e8e3;
+    --text-primary: #202938;
+    --text-secondary: #6b7783;
+    --text-heading: var(--dps-navy);
     --accent-color: var(--dps-navy);
     --accent-hover: #0f0f59;
-    --accent-soft-bg: rgba(21, 21, 119, 0.10);
+    --accent-soft-bg: var(--dps-green-soft);
     --primary-color: var(--dps-navy);
     --primary-hover: #0f0f59;
-    --purple-color: var(--dps-navy);
-    --purple-bg: rgba(21, 21, 119, 0.08);
-    --purple-border: rgba(21, 21, 119, 0.16);
+    --purple-color: var(--dps-green);
+    --purple-bg: var(--dps-green-soft);
+    --purple-border: #c7e8d1;
+    --table-head-bg: var(--dps-navy);
+    --table-head-text: #ffffff;
 }
 
 /* Remove the dashboard greeting and marketing shortcut strip as one block. */
@@ -138,14 +152,16 @@ a.login-changelogs {
 }
 
 /* Replace static purple dashboard paint with the two DPS brand colours. */
-.activity-table thead,
-.activity-tab.active {
+#main-content .activity-table thead,
+#main-content .activity-table thead tr,
+#main-content .activity-table thead th,
+#main-content .activity-tab.active {
     background: var(--dps-navy) !important;
 }
 
-.activity-tab:hover {
+#main-content .activity-tab:hover {
     color: var(--dps-navy) !important;
-    background: rgba(21, 21, 119, 0.08) !important;
+    background: var(--dps-green-soft) !important;
 }
 
 .insight-card:hover,
@@ -169,4 +185,17 @@ a.login-changelogs {
 .success,
 .text-success {
     color: var(--dps-green) !important;
+}
+
+#main-content .btn-primary,
+#main-content .btn-info {
+    border-color: var(--dps-navy) !important;
+    background: var(--dps-navy) !important;
+    color: #ffffff !important;
+}
+
+#main-content .btn-success {
+    border-color: var(--dps-green) !important;
+    background: var(--dps-green) !important;
+    color: #ffffff !important;
 }

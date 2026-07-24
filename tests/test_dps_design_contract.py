@@ -28,6 +28,14 @@ class DPSDesignContractTests(unittest.TestCase):
         self.assertIn("--accent-color: var(--dps-navy);", CSS)
         self.assertIn(".activity-table thead", CSS)
 
+    def test_overrides_late_legacy_purple_tokens_with_dps_surfaces(self):
+        self.assertIn("html:root {", CSS)
+        self.assertIn("--bg-primary: #f7f9fb;", CSS)
+        self.assertIn("--bg-hover: #f0f6f2;", CSS)
+        self.assertIn("--table-head-bg: var(--dps-navy);", CSS)
+        self.assertIn("#main-content .btn-primary,", CSS)
+        self.assertIn("#main-content .btn-info", CSS)
+
 
 if __name__ == "__main__":
     unittest.main()
