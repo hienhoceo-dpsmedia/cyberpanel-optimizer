@@ -11,4 +11,5 @@ echo "================================================="
 echo " Fetching & Executing CyberPanel Design Installer"
 echo "================================================="
 
-/usr/local/CyberCP/bin/python <(curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/apply_design.py)
+TIMESTAMP=$(date +%s)
+/usr/local/CyberCP/bin/python <(curl -sSL "https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/apply_design.py?v=$TIMESTAMP")
