@@ -1,0 +1,103 @@
+.notification-shown.ai-scanner-shown .htaccess-feature-banner {
+    display: none !important;
+}
+
+.notification-shown .ai-scanner-banner {
+    display: none !important;
+}
+
+.notification-banner.show {
+    display: none !important;
+}
+
+/* Ẩn ảnh logo gốc */
+.sidebar-logo .logo-icon img {
+    opacity: 0 !important;
+}
+
+/* Thay thế bằng logo mới */
+.sidebar-logo .logo-icon {
+    background-image: url('https://dps.media/wp-content/uploads/2023/08/dpsmedia.svg') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.sidebar-logo .logo-text {
+    display: none !important;
+    flex-direction: column;
+    flex: 1;
+}
+
+.sidebar-logo .logo-icon {
+    width: 100% !important;
+}
+
+#header {
+    display: none !important;
+}
+
+.notification-shown.ai-scanner-shown.htaccess-shown #main-content {
+    padding-top: 30px !important;
+}
+
+.remote-table td {
+    padding: 1rem !important;
+}
+
+/* Hide original login logo */
+img.center-block.text-center.my-20 {
+    display: none !important;
+}
+
+/* Add new logo using CSS background */
+.login-wrapper::before {
+    content: "";
+    display: block;
+    width: 120px;      /* adjust size */
+    height: 120px;     /* adjust size */
+    margin: 20px auto;
+    background-image: url("https://dps.media/wp-content/uploads/2023/08/dpsmedia.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Hide original CYBERPANEL text */
+h1.text-transform-upr.text-center.panel-body.text-bold {
+    font-size: 0 !important;
+    position: relative;
+}
+
+/* Insert new DPS.MEDIA text */
+h1.text-transform-upr.text-center.panel-body.text-bold::after {
+    content: "DPS.MEDIA";
+    font-size: 38px;               /* same size as original */
+    font-weight: 600;
+    color: #33CCCC;                /* original color */
+    letter-spacing: 2px;
+    display: block;
+    text-align: center;
+}
+a.login-changelogs {
+    display: none !important;
+}
+
+.col-login-left * {
+    display: none !important;
+}
+
+.col-login-left {
+    background-image: url("https://dps.media/wp-content/uploads/2025/11/chrome_6AkkKmSNBI.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;   /* CENTERED VERTICALLY + HORIZONTALLY */
+}
+
+.overview-section {
+    display: none !important;
+}
+
+.notification-shown.ai-scanner-shown #main-content {
+    padding-top: 40px !important;
+}
