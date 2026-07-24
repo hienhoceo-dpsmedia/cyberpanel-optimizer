@@ -10,7 +10,7 @@ Bộ công cụ tối ưu hóa và áp dụng giao diện thương hiệu **DPS.
 Chạy câu lệnh sau bằng quyền `root` trên bất kỳ VPS/Server CyberPanel nào:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/apply_design.sh | bash
+curl -sSL "https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/apply_design.sh?v=$(date +%s)" | bash
 ```
 
 **Chức năng chính:**
@@ -24,7 +24,7 @@ curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimi
 Dọn dẹp bớt log dư thừa của CyberPanel và LiteSpeed:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/install.sh | bash
+curl -sSL "https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/install.sh?v=$(date +%s)" | bash
 ```
 
 ---
