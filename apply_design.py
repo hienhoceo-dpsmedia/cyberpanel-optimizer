@@ -56,6 +56,8 @@ try:
     req = urllib.request.Request(CSS_URL, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req) as response:
         css_content = response.read().decode('utf-8')
+        # Ensure CSS is pure ASCII to avoid MySQL collation/encoding errors
+        css_content = css_content.encode('ascii', 'ignore').decode('ascii')
 except Exception as e:
     print(f"  -> Error fetching CSS from GitHub: {e}")
     sys.exit(1)
