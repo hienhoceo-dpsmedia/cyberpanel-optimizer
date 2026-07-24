@@ -10,12 +10,12 @@
     display: none !important;
 }
 
-/* Ẩn ảnh logo gốc */
+/* Hide original logo */
 .sidebar-logo .logo-icon img {
     opacity: 0 !important;
 }
 
-/* Thay thế bằng logo mới */
+/* Replace with new logo */
 .sidebar-logo .logo-icon {
     background-image: url('https://dps.media/wp-content/uploads/2023/08/dpsmedia.svg') !important;
     background-size: contain !important;
@@ -54,8 +54,8 @@ img.center-block.text-center.my-20 {
 .login-wrapper::before {
     content: "";
     display: block;
-    width: 120px;      /* adjust size */
-    height: 120px;     /* adjust size */
+    width: 120px;
+    height: 120px;
     margin: 20px auto;
     background-image: url("https://dps.media/wp-content/uploads/2023/08/dpsmedia.svg");
     background-size: contain;
@@ -72,9 +72,9 @@ h1.text-transform-upr.text-center.panel-body.text-bold {
 /* Insert new DPS.MEDIA text */
 h1.text-transform-upr.text-center.panel-body.text-bold::after {
     content: "DPS.MEDIA";
-    font-size: 38px;               /* same size as original */
+    font-size: 38px;
     font-weight: 600;
-    color: #33CCCC;                /* original color */
+    color: #33CCCC;
     letter-spacing: 2px;
     display: block;
     text-align: center;
@@ -91,7 +91,7 @@ a.login-changelogs {
     background-image: url("https://dps.media/wp-content/uploads/2025/11/chrome_6AkkKmSNBI.png");
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center center;   /* CENTERED VERTICALLY + HORIZONTALLY */
+    background-position: center center;
 }
 
 .overview-section {
