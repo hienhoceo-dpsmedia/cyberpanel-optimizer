@@ -112,7 +112,9 @@ a.login-changelogs { display: none !important; }
     background-position: center center;
 }
 .overview-section { display: none !important; }
+.domain-hero, .quick-actions { display: none !important; }
 .notification-shown.ai-scanner-shown #main-content { padding-top: 40px !important; }
+
 """
 
 # Django context setup

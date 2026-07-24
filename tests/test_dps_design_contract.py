@@ -12,6 +12,8 @@ class DPSDesignContractTests(unittest.TestCase):
         required_selectors = (
             ".dashboard-greeting",
             ".cp-quick-actions",
+            ".domain-hero",
+            ".quick-actions",
             'a[href="/base/hub/email"]',
             'a[href="/base/buildServices"]',
             'a[href^="https://platform.cyberpersons.com/"]',
@@ -27,6 +29,8 @@ class DPSDesignContractTests(unittest.TestCase):
         self.assertIn("--dps-green: #32b561;", CSS)
         self.assertIn("--accent-color: var(--dps-navy);", CSS)
         self.assertIn(".activity-table thead", CSS)
+        self.assertIn(".fa-chevron-down,", CSS)
+        self.assertIn(".install-btn,", CSS)
 
     def test_overrides_late_legacy_purple_tokens_with_dps_surfaces(self):
         self.assertIn("html:root {", CSS)
@@ -35,6 +39,8 @@ class DPSDesignContractTests(unittest.TestCase):
         self.assertIn("--table-head-bg: var(--dps-navy);", CSS)
         self.assertIn("#main-content .btn-primary,", CSS)
         self.assertIn("#main-content .btn-info", CSS)
+        self.assertIn("#main-content .btn-success,", CSS)
+
 
 
 if __name__ == "__main__":

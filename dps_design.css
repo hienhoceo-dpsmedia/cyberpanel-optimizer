@@ -130,11 +130,13 @@ html:root {
     --table-head-text: #ffffff;
 }
 
-/* Remove the dashboard greeting and marketing shortcut strip as one block. */
+/* Remove the dashboard greeting, marketing shortcut strip, domain hero banner and quick actions bar. */
 .dashboard-greeting,
 .cp-quick-actions,
 .cp-build-card,
-.cp-empty-nudge {
+.cp-empty-nudge,
+.domain-hero,
+.quick-actions {
     display: none !important;
 }
 
@@ -151,17 +153,50 @@ html:root {
     display: none !important;
 }
 
-/* Replace static purple dashboard paint with the two DPS brand colours. */
+/* Table headers & active states: Navy #151577 */
+#main-content table thead,
+#main-content table thead tr,
+#main-content table thead th,
+#main-content table th,
+.table thead,
+.table thead tr,
+.table thead th,
+.table th,
+.cyber-table th,
+.stats-table th,
+.data-table th,
 #main-content .activity-table thead,
 #main-content .activity-table thead tr,
 #main-content .activity-table thead th,
-#main-content .activity-tab.active {
+#main-content .activity-tab.active,
+.cp-tab.active,
+.nav-tabs > li.active > a,
+.nav-pills > li.active > a,
+#sidebar li.active > a {
     background: var(--dps-navy) !important;
+    color: #ffffff !important;
+    border-color: var(--dps-navy) !important;
 }
 
-#main-content .activity-tab:hover {
+#main-content .activity-tab:hover,
+.cp-tab:hover {
     color: var(--dps-navy) !important;
     background: var(--dps-green-soft) !important;
+}
+
+/* Chevrons: Navy #151577 */
+.fa-chevron-down,
+.fa-chevron-up,
+.fa-chevron-right,
+.fa-chevron-left,
+.fa-angle-down,
+.fa-angle-up,
+.fa-angle-right,
+.fa-angle-left,
+.fa-caret-down,
+.fa-caret-right,
+.chevron {
+    color: var(--dps-navy) !important;
 }
 
 .insight-card:hover,
@@ -180,22 +215,71 @@ html:root {
     background: var(--dps-green) !important;
 }
 
+/* Status icons & active indicators: Green #32b561 */
 .activity-table .status-active,
 .activity-table .status-success,
+.status-active,
+.status-success,
 .success,
-.text-success {
+.text-success,
+.status-dot,
+.badge-success,
+.label-success,
+.fa-check-circle,
+.fa-check,
+i.status-icon {
     color: var(--dps-green) !important;
 }
 
+.status-dot,
+.badge-success,
+.label-success {
+    background-color: var(--dps-green) !important;
+}
+
+/* Primary / Manage / Scan buttons: Navy #151577 */
 #main-content .btn-primary,
-#main-content .btn-info {
+#main-content .btn-info,
+.btn-primary,
+.btn-info,
+.btn-manage,
+.btn-scan,
+a.btn-primary,
+button.btn-primary {
     border-color: var(--dps-navy) !important;
     background: var(--dps-navy) !important;
     color: #ffffff !important;
 }
 
-#main-content .btn-success {
+#main-content .btn-primary:hover,
+#main-content .btn-info:hover,
+.btn-primary:hover,
+.btn-info:hover,
+.btn-manage:hover,
+.btn-scan:hover {
+    background: #0f0f59 !important;
+    border-color: #0f0f59 !important;
+    color: #ffffff !important;
+}
+
+/* Success & Install buttons: Green #32b561 */
+#main-content .btn-success,
+.btn-success,
+.install-btn,
+.btn-install,
+a.btn-success,
+button.btn-success {
     border-color: var(--dps-green) !important;
     background: var(--dps-green) !important;
     color: #ffffff !important;
 }
+
+#main-content .btn-success:hover,
+.btn-success:hover,
+.install-btn:hover,
+.btn-install:hover {
+    background: #289950 !important;
+    border-color: #289950 !important;
+    color: #ffffff !important;
+}
+
