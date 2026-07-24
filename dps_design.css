@@ -74,7 +74,7 @@ h1.text-transform-upr.text-center.panel-body.text-bold::after {
     content: "DPS.MEDIA";
     font-size: 38px;
     font-weight: 600;
-    color: #33CCCC;
+    color: #32b561;
     letter-spacing: 2px;
     display: block;
     text-align: center;
@@ -100,4 +100,73 @@ a.login-changelogs {
 
 .notification-shown.ai-scanner-shown #main-content {
     padding-top: 40px !important;
+}
+
+/* DPS baseline: an operational panel, not a marketing dashboard. */
+:root {
+    --dps-navy: #151577;
+    --dps-green: #32b561;
+    --accent-color: var(--dps-navy);
+    --accent-hover: #0f0f59;
+    --accent-soft-bg: rgba(21, 21, 119, 0.10);
+    --primary-color: var(--dps-navy);
+    --primary-hover: #0f0f59;
+    --purple-color: var(--dps-navy);
+    --purple-bg: rgba(21, 21, 119, 0.08);
+    --purple-border: rgba(21, 21, 119, 0.16);
+}
+
+/* Remove the dashboard greeting and marketing shortcut strip as one block. */
+.dashboard-greeting,
+.cp-quick-actions,
+.cp-build-card,
+.cp-empty-nudge {
+    display: none !important;
+}
+
+/* This panel does not offer mail storage or CyberPanel's build-service marketing. */
+#sidebar a[href="/base/hub/email"],
+#sidebar a[href="/base/buildServices"],
+#sidebar a[href^="https://platform.cyberpersons.com/"],
+#sidebar a[href^="https://cyberpanel.net/KnowledgeBase/"] {
+    display: none !important;
+}
+
+/* The Help header is immediately followed by the Connect link in the stock layout. */
+#sidebar .section-header:has(+ a[href^="https://platform.cyberpersons.com/"]) {
+    display: none !important;
+}
+
+/* Replace static purple dashboard paint with the two DPS brand colours. */
+.activity-table thead,
+.activity-tab.active {
+    background: var(--dps-navy) !important;
+}
+
+.activity-tab:hover {
+    color: var(--dps-navy) !important;
+    background: rgba(21, 21, 119, 0.08) !important;
+}
+
+.insight-card:hover,
+.cp-qa-card:hover,
+.cp-ob-step:hover {
+    border-color: var(--dps-navy) !important;
+}
+
+.insight-icon,
+.progress-bar,
+.cp-ob-num {
+    background: var(--dps-navy) !important;
+}
+
+.insight-card:first-child .insight-icon {
+    background: var(--dps-green) !important;
+}
+
+.activity-table .status-active,
+.activity-table .status-success,
+.success,
+.text-success {
+    color: var(--dps-green) !important;
 }
