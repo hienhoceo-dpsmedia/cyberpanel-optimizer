@@ -1,29 +1,27 @@
-# CyberPanel & OpenLiteSpeed Optimizer
+# CyberPanel Optimizer & DPS.MEDIA Custom Branding
 
-Script tự động tối ưu hóa phân vùng ghi tạm (swapping directory) cho OpenLiteSpeed (OLS) và cài đặt tác vụ dọn dẹp log, cache định kỳ tự động cho VPS chạy CyberPanel.
-
-## Các tính năng chính
-
-1. **Tách Swapping Directory ra khỏi `/tmp`:**
-   * Di chuyển Swap Directory của OLS từ mặc định `/tmp/lshttpd/swap` sang thư mục riêng `/lswstmp/lshttpd/swap` trên phân vùng đĩa cứng.
-   * Ngăn chặn việc làm đầy thư mục tạm `/tmp` (thường chạy trên RAM `tmpfs` hoặc phân vùng root có dung lượng nhỏ), giúp tránh lỗi crash cơ sở dữ liệu **MySQL/MariaDB** khi `/tmp` bị đầy.
-   * Tự động nhận diện group sở hữu (`nobody` cho CentOS/AlmaLinux hoặc `nogroup` cho Ubuntu/Debian).
-
-2. **Log & Cache Cleaner định kỳ (`/root/logscleaner.sh`):**
-   * **Truncate log OLS:** Làm rỗng tất cả các tệp tin `*.log` trong `/usr/local/lsws/logs/` để giải phóng dung lượng nhưng không làm hỏng file descriptor của OpenLiteSpeed.
-   * **Clean OLS cache:** Xóa toàn bộ tệp tin cache đã lưu (LSCache) để khôi phục dung lượng ổ đĩa và inodes.
-   * **Truncate CyberPanel debug log:** Làm rỗng `/home/cyberpanel/error-logs.txt`.
-   * **Dọn dẹp Journalctl:** Giới hạn dung lượng log hệ thống (`systemd-journal`) ở mức tối đa 500MB.
-   * **Tự động quét rác:** Quét liệt kê các tệp tin `.sql`, `.gz` thừa thãi và thư mục rác `.trash`, website `staging` của người dùng để admin dễ quản trị dung lượng.
-
-3. **Thiết lập Cron Job tự động:**
-   * Tự động đăng ký một Daily Cron Job tại `/etc/cron.d/cyberpanel_logcleaner` để tự động chạy dọn dẹp vào **3:00 sáng mỗi ngày**.
+Bộ công cụ tối ưu hóa và áp dụng giao diện thương hiệu **DPS.MEDIA** tự động cho **CyberPanel**, sửa triệt để lỗi Server Error (500) khi lưu Custom CSS và dọn dẹp dung lượng hệ thống.
 
 ---
 
-## Hướng dẫn cài đặt bằng 1 lệnh duy nhất (1-Click Install)
+## 🚀 Lệnh cài đặt nhanh (1-Liner)
 
-Chạy lệnh dưới đây với quyền `root` trên VPS CyberPanel của bạn:
+### 🎨 1. Tự động sửa lỗi 500 & Áp dụng Giao diện DPS.MEDIA Custom CSS
+Chạy câu lệnh sau bằng quyền `root` trên bất kỳ VPS/Server CyberPanel nào:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/apply_design.sh | bash
+```
+
+**Chức năng chính:**
+- 🛠️ **Sửa lỗi Server Error (500):** Tự động bọc bộ xử lý ngoại lệ `try...except` và bổ sung timeout/header cho API GitHub trong `baseTemplate/views.py`.
+- 🎨 **Áp dụng Custom Branding DPS.MEDIA:** Tự động nạp logo, ẩn các banner quảng cáo/AI scanner rác và cập nhật CSS giao diện vào cơ sở dữ liệu CyberPanel.
+- 🔄 **Tự động restart service:** Khởi động lại dịch vụ `lscpd` ngay sau khi cập nhật.
+
+---
+
+### 🧹 2. Dọn dẹp Log & Tối ưu dung lượng CyberPanel
+Dọn dẹp bớt log dư thừa của CyberPanel và LiteSpeed:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/install.sh | bash
@@ -31,22 +29,21 @@ curl -sSL https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimi
 
 ---
 
-## Kiểm tra sau khi cài đặt
+## 📁 Cấu trúc Repository
 
-1. **Kiểm tra file cấu hình OLS đã được cập nhật chưa:**
-   ```bash
-   grep swappingDir /usr/local/lsws/conf/httpd_config.conf
-   # hoặc nếu phiên bản cũ:
-   grep swappingDir /usr/local/lsws/conf/httpd_config.xml
-   ```
-   *Kết quả mong muốn:* `<swappingDir>/lswstmp/lshttpd/swap</swappingDir>` hoặc `swappingDir /lswstmp/lshttpd/swap`.
+- `apply_design.sh`: Script 1-liner gọi bộ cập nhật giao diện & sửa lỗi 500.
+- `apply_design.py`: Script Python tự động patch `views.py` và cập nhật Django Model `CyberPanelCosmetic`.
+- `dps_design.css`: Bộ CSS tùy biến giao diện thương hiệu DPS.MEDIA.
+- `install.sh`: Script dọn dẹp file log hệ thống.
 
-2. **Chạy thử dọn dẹp thủ công:**
-   ```bash
-   /bin/bash /root/logscleaner.sh
-   ```
+---
 
-3. **Kiểm tra Cron Job tự động:**
-   ```bash
-   cat /etc/cron.d/cyberpanel_logcleaner
-   ```
+## 🛡️ An toàn & Sao lưu
+- Script `apply_design.py` tự động tạo bản sao lưu `/usr/local/CyberCP/baseTemplate/views.py.bak` trước khi thực hiện thay đổi.
+- Nếu muốn khôi phục lại trạng thái file views cũ:
+  ```bash
+  cp /usr/local/CyberCP/baseTemplate/views.py.bak /usr/local/CyberCP/baseTemplate/views.py && systemctl restart lscpd
+  ```
+
+---
+© DPS.MEDIA JSC. All rights reserved.
