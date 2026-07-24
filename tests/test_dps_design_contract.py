@@ -40,6 +40,10 @@ class DPSDesignContractTests(unittest.TestCase):
         self.assertIn("#main-content .btn-primary,", CSS)
         self.assertIn("#main-content .btn-info", CSS)
         self.assertIn("#main-content .btn-success,", CSS)
+        self.assertIn(".cp-build-btn.ghost", CSS)
+        self.assertIn("#cp-site-tabs .cp-tab.active", CSS)
+        self.assertIn(".cp-tile .cp-tile-ic", CSS)
+
 
 
 

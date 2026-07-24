@@ -283,3 +283,83 @@ button.btn-success {
     color: #ffffff !important;
 }
 
+/* Site Workspace & Detail page components */
+.cp-site-actions .cp-build-btn,
+.cp-site-actions .cp-build-btn.ghost,
+.cp-build-btn,
+.cp-build-btn.ghost {
+    background: var(--dps-navy) !important;
+    color: #ffffff !important;
+    border-color: var(--dps-navy) !important;
+}
+
+.cp-site-actions .cp-build-btn i,
+.cp-site-actions .cp-build-btn.ghost i,
+.cp-build-btn i,
+.cp-build-btn.ghost i {
+    color: #ffffff !important;
+}
+
+.cp-site-actions .cp-build-btn:hover,
+.cp-site-actions .cp-build-btn.ghost:hover,
+.cp-build-btn:hover,
+.cp-build-btn.ghost:hover {
+    background: #0f0f59 !important;
+    border-color: #0f0f59 !important;
+    color: #ffffff !important;
+}
+
+.cp-tab.active,
+#cp-site-tabs .cp-tab.active,
+#cp-wtabs .cp-tab.active {
+    background: var(--dps-navy) !important;
+    color: #ffffff !important;
+    border-color: var(--dps-navy) !important;
+}
+
+.cp-tab.active i,
+#cp-site-tabs .cp-tab.active i,
+#cp-wtabs .cp-tab.active i {
+    color: #ffffff !important;
+}
+
+.cp-tab:hover,
+#cp-site-tabs .cp-tab:hover,
+#cp-wtabs .cp-tab:hover {
+    color: var(--dps-navy) !important;
+    background: var(--dps-green-soft) !important;
+}
+
+.cp-tab:hover i,
+#cp-site-tabs .cp-tab:hover i,
+#cp-wtabs .cp-tab:hover i {
+    color: var(--dps-navy) !important;
+}
+
+.cp-site-head .cp-site-favicon {
+    background: var(--dps-green-soft) !important;
+    color: var(--dps-navy) !important;
+}
+
+.cp-site-head .cp-site-favicon i {
+    color: var(--dps-navy) !important;
+}
+
+.cp-tile .cp-tile-ic {
+    background: var(--dps-green-soft) !important;
+    color: var(--dps-navy) !important;
+}
+
+.cp-tile .cp-tile-ic i {
+    color: var(--dps-navy) !important;
+}
+
+.cp-tile:hover {
+    border-color: var(--dps-navy) !important;
+}
+
+.cp-tile:hover .cp-tile-title {
+    color: var(--dps-navy) !important;
+}
+
+
