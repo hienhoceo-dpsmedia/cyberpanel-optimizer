@@ -44,8 +44,27 @@ class DPSDesignContractTests(unittest.TestCase):
         self.assertIn("#cp-site-tabs .cp-tab.active", CSS)
         self.assertIn(".cp-tile .cp-tile-ic", CSS)
 
+    def test_provides_2k_high_dpi_responsive_scaling(self):
+        self.assertIn("@media screen and (min-width: 2200px)", CSS)
+        self.assertIn("/* 2K / 1440p Displays (2200px+ viewport): ~1.5x font & UI scaling */", CSS)
+        self.assertIn("font-size: 19.5px !important;", CSS)
+        self.assertIn("height: 52px !important;", CSS)
+        self.assertIn("width: 300px !important;", CSS)
 
+    def test_hides_website_screenshot_and_compacts_metadata_grid(self):
+        self.assertIn(".website-screenshot,", CSS)
+        self.assertIn("display: none !important;", CSS)
+        self.assertIn(".info-cell {", CSS)
+        self.assertIn("padding: 10px 16px !important;", CSS)
+
+    def test_redesigns_file_manager_with_dps_theme(self):
+        self.assertIn("#navBar .nav-link:hover", CSS)
+        self.assertIn("#treeView .content-box", CSS)
+        self.assertIn(".col-sm-9 table thead", CSS)
+        self.assertIn("background: var(--dps-navy, #151577) !important;", CSS)
 
 
 if __name__ == "__main__":
     unittest.main()
+
+

@@ -115,7 +115,47 @@ a.login-changelogs { display: none !important; }
 .domain-hero, .quick-actions { display: none !important; }
 .notification-shown.ai-scanner-shown #main-content { padding-top: 40px !important; }
 
+@media screen and (min-width: 1920px) {
+    body, #main-content { font-size: 16.5px !important; }
+    .form-control, input, select, label, button, td, th { font-size: 16.5px !important; }
+    .form-control { height: 46px !important; padding: 10px 16px !important; }
+}
+
+@media screen and (min-width: 2200px) {
+    body, #main-content { font-size: 19.5px !important; }
+    .form-control, input, select, label, button, td, th, .nav-tabs > li > a { font-size: 19px !important; }
+    .form-control { height: 52px !important; padding: 12px 20px !important; font-size: 18.5px !important; }
+    .btn { padding: 12px 28px !important; font-size: 18.5px !important; }
+    #sidebar { width: 300px !important; }
+    #sidebar a { font-size: 18px !important; }
+}
+
+.website-screenshot, img.website-screenshot, .screenshot-section img { display: none !important; }
+.website-details { padding: 16px 20px !important; background: #ffffff !important; border-radius: 10px !important; }
+.info-table { border: 1px solid #e1e8e3 !important; border-radius: 8px !important; }
+.info-cell { padding: 10px 16px !important; border-right: 1px solid #e1e8e3 !important; }
+.info-label { font-size: 11px !important; font-weight: 700 !important; color: #6b7783 !important; text-transform: uppercase !important; }
+.info-value { font-size: 13.5px !important; font-weight: 600 !important; color: #202938 !important; }
+
+#navBar { background: #ffffff !important; border-bottom: 1px solid #e1e8e3 !important; }
+.header-logo .logo-icon { background: #e8f6ed !important; color: #151577 !important; border-radius: 8px !important; }
+.header-logo .brand { color: #151577 !important; font-weight: 700 !important; }
+.header-logo .domain { background: #e8f6ed !important; color: #32b561 !important; font-weight: 600 !important; }
+#navBar .nav-link { color: #202938 !important; font-weight: 600 !important; }
+#navBar .nav-link i { color: #151577 !important; }
+#navBar .nav-link:hover { background: #e8f6ed !important; color: #151577 !important; }
+#treeView .content-box { background: #ffffff !important; border: 1px solid #e1e8e3 !important; border-radius: 10px !important; }
+#currentPath { border: 1px solid #e1e8e3 !important; background: #f7f9fb !important; font-family: monospace !important; color: #151577 !important; }
+.col-sm-9 .nav { background: #ffffff !important; border: 1px solid #e1e8e3 !important; border-radius: 10px !important; }
+.col-sm-9 .nav-item a { color: #202938 !important; font-weight: 600 !important; }
+.col-sm-9 .nav-item a i { color: #151577 !important; }
+.col-sm-9 .nav-item a:hover { background: #e8f6ed !important; color: #151577 !important; }
+#tableHead, .col-sm-9 table thead, .col-sm-9 table thead th { background: #151577 !important; color: #ffffff !important; border: none !important; }
+.col-sm-9 table tbody tr:hover { background: #e8f6ed !important; }
+.col-sm-9 table td i.fa-folder { color: #151577 !important; }
+.col-sm-9 table td i.fa-file { color: #32b561 !important; }
 """
+
 
 # Django context setup
 sys.path.append('/usr/local/CyberCP')
