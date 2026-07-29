@@ -3,6 +3,7 @@ import sys
 import re
 import time
 import urllib.request
+import shutil
 
 print("==========================================")
 print("  DPS.MEDIA CyberPanel Design & Fix Tool  ")
@@ -12,7 +13,7 @@ VIEWS_PATH = '/usr/local/CyberCP/baseTemplate/views.py'
 
 # 1. Patch views.py to fix 500 error on /base/design
 if os.path.exists(VIEWS_PATH):
-    print("[1/3] Checking and patching views.py...")
+    print("[1/5] Checking and patching views.py...")
     with open(VIEWS_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
     
@@ -49,7 +50,7 @@ if os.path.exists(VIEWS_PATH):
         print("  -> views.py is already patched.")
 
 # 2. Update Database with Custom CSS
-print("[2/3] Updating Custom CSS in CyberPanel Database...")
+print("[2/5] Updating Custom CSS in CyberPanel Database...")
 
 CSS_URL = f"https://raw.githubusercontent.com/hienhoceo-dpsmedia/cyberpanel-optimizer/main/dps_design.css?v={int(time.time())}"
 
@@ -175,8 +176,78 @@ except Exception as e:
     print(f"  -> Error updating database: {e}")
     sys.exit(1)
 
-# 3. Restart CyberPanel Service
-print("[3/3] Restarting CyberPanel Service (lscpd)...")
+# 3. White-Label HTML Templates (Change Titles)
+print("[3/5] White-labeling HTML templates...")
+TEMPLATES_TO_PATCH = [
+    {
+        'path': '/usr/local/CyberCP/loginSystem/templates/loginSystem/login.html',
+        'target': r'<title>\s*Login\s*-\s*CyberPanel\s*</title>',
+        'replacement': '<title> Login - DPS Portal </title>'
+    },
+    {
+        'path': '/usr/local/CyberCP/baseTemplate/templates/baseTemplate/index.html',
+        'target': r'<title>\s*{%\s*block\s+title\s*%}\s*CyberPanel\s*{%\s*endblock\s*%}\s*</title>',
+        'replacement': '<title>{% block title %}DPS Portal{% endblock %}</title>'
+    },
+    {
+        'path': '/usr/local/CyberCP/baseTemplate/templates/baseTemplate/FileManager.html',
+        'target': r'<title>\s*{%\s*trans\s+[\'"]File\s+Manager\s*-\s*CyberPanel[\'"]\s*%}\s*</title>',
+        'replacement': '<title>{% trans "File Manager" %}</title>'
+    }
+]
+
+for t in TEMPLATES_TO_PATCH:
+    path = t['path']
+    if os.path.exists(path):
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            if re.search(t['target'], content, flags=re.IGNORECASE):
+                # Backup if not exists
+                bak_path = path + ".bak"
+                if not os.path.exists(bak_path):
+                    shutil.copy2(path, bak_path)
+                    print(f"  -> Backup created: {os.path.basename(bak_path)}")
+                
+                content = re.sub(t['target'], t['replacement'], content, flags=re.IGNORECASE)
+                with open(path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                print(f"  -> White-labeled: {os.path.basename(path)}")
+            else:
+                print(f"  -> {os.path.basename(path)} already modified or target pattern not found.")
+        except Exception as e:
+            print(f"  -> Error white-labeling {os.path.basename(path)}: {e}")
+    else:
+        print(f"  -> Template not found: {path}")
+
+# 4. Remove Default Landing Pages
+DEFAULT_HTML_DIR = '/usr/local/lsws/DEFAULT/html'
+if os.path.exists(DEFAULT_HTML_DIR):
+    print("[4/5] Overwriting default landing pages...")
+    try:
+        index_php = os.path.join(DEFAULT_HTML_DIR, 'index.php')
+        index_html = os.path.join(DEFAULT_HTML_DIR, 'index.html')
+        
+        # Backup index.php if not already backed up
+        if os.path.exists(index_php) and not os.path.exists(index_php + '.bak'):
+            shutil.copy2(index_php, index_php + '.bak')
+            print("  -> Backup created: index.php.bak")
+        # Remove default index.php to prevent executing standard CyberPanel info scripts
+        if os.path.exists(index_php):
+            os.remove(index_php)
+            print("  -> Removed default index.php")
+            
+        # Write blank/generic index.html
+        with open(index_html, 'w', encoding='utf-8') as f:
+            f.write('<html><head><title>Not Found</title></head><body><h1>404 Not Found</h1></body></html>\n')
+        print("  -> Created generic index.html")
+    except Exception as e:
+        print(f"  -> Error overwriting landing page: {e}")
+else:
+    print("  -> Default landing page directory not found (skipping).")
+
+# 5. Restart CyberPanel Service
+print("[5/5] Restarting CyberPanel Service (lscpd)...")
 os.system("systemctl restart lscpd")
 print("==========================================")
 print("  SUCCESS! CyberPanel design applied.    ")
