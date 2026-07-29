@@ -176,7 +176,7 @@ except Exception as e:
     print(f"  -> Error updating database: {e}")
     sys.exit(1)
 
-# 3. White-Label HTML Templates (Change Titles)
+# 3. White-Label HTML Templates (Change Titles & Inject Styles)
 print("[3/5] White-labeling HTML templates...")
 TEMPLATES_TO_PATCH = [
     {
@@ -196,27 +196,79 @@ TEMPLATES_TO_PATCH = [
     }
 ]
 
+TITLE_CLEANER_JS = """
+    <!-- DPS.MEDIA Title Cleaner -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function cleanTitle() {
+                var oldTitle = document.title;
+                var newTitle = oldTitle.replace(/\\s*-\\s*CyberPanel/gi, '').replace(/CyberPanel/gi, 'DPS Portal');
+                if (oldTitle !== newTitle) {
+                    document.title = newTitle;
+                }
+            }
+            cleanTitle();
+            var observer = new MutationObserver(function(mutations) {
+                cleanTitle();
+            });
+            var titleNode = document.querySelector('title');
+            if (titleNode) {
+                observer.observe(titleNode, { childList: true });
+            }
+        });
+    </script>
+</head>
+"""
+
 for t in TEMPLATES_TO_PATCH:
     path = t['path']
     if os.path.exists(path):
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 content = f.read()
+            
+            modified = False
+            
+            # Backup original template if not already backed up
+            bak_path = path + ".bak"
+            if not os.path.exists(bak_path):
+                shutil.copy2(path, bak_path)
+                print(f"  -> Backup created: {os.path.basename(bak_path)}")
+
+            # 1. Update Title tag (fallback)
             if re.search(t['target'], content, flags=re.IGNORECASE | re.DOTALL):
-                # Backup if not exists
-                bak_path = path + ".bak"
-                if not os.path.exists(bak_path):
-                    shutil.copy2(path, bak_path)
-                    print(f"  -> Backup created: {os.path.basename(bak_path)}")
+                new_content = re.sub(t['target'], t['replacement'], content, flags=re.IGNORECASE | re.DOTALL)
+                if new_content != content:
+                    content = new_content
+                    modified = True
+            
+            # 2. Inject client-side Title Cleaner JavaScript
+            if 'cleanTitle' not in content:
+                content = content.replace('</head>', TITLE_CLEANER_JS)
+                modified = True
+                print(f"  -> Injected client-side title cleaner script into {os.path.basename(path)}")
                 
-                content = re.sub(t['target'], t['replacement'], content, flags=re.IGNORECASE | re.DOTALL)
+            # 3. For FileManager.html, also inject the cosmetic database CSS loading block
+            if 'FileManager.html' in path and 'cosmetic.MainDashboardCSS' not in content:
+                css_block = """
+    <!-- Custom CSS from CyberPanel Database -->
+    <style>
+        {{ cosmetic.MainDashboardCSS | safe }}
+    </style>
+</head>
+"""
+                content = content.replace('</head>', css_block)
+                modified = True
+                print("  -> Injected Custom CSS loader block into FileManager.html")
+                
+            if modified:
                 with open(path, 'w', encoding='utf-8') as f:
                     f.write(content)
-                print(f"  -> White-labeled: {os.path.basename(path)}")
+                print(f"  -> Template updated successfully: {os.path.basename(path)}")
             else:
-                print(f"  -> {os.path.basename(path)} already modified or target pattern not found.")
+                print(f"  -> No modifications needed for {os.path.basename(path)}")
         except Exception as e:
-            print(f"  -> Error white-labeling {os.path.basename(path)}: {e}")
+            print(f"  -> Error patching template {os.path.basename(path)}: {e}")
     else:
         print(f"  -> Template not found: {path}")
 
