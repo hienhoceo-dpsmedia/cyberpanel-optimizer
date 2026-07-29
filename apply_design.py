@@ -220,31 +220,67 @@ for t in TEMPLATES_TO_PATCH:
     else:
         print(f"  -> Template not found: {path}")
 
-# 4. Remove Default Landing Pages
+# 4. Remove Default Landing Pages & Templates
 DEFAULT_HTML_DIR = '/usr/local/lsws/DEFAULT/html'
-if os.path.exists(DEFAULT_HTML_DIR):
-    print("[4/5] Overwriting default landing pages...")
-    try:
-        index_php = os.path.join(DEFAULT_HTML_DIR, 'index.php')
-        index_html = os.path.join(DEFAULT_HTML_DIR, 'index.html')
-        
-        # Backup index.php if not already backed up
-        if os.path.exists(index_php) and not os.path.exists(index_php + '.bak'):
-            shutil.copy2(index_php, index_php + '.bak')
-            print("  -> Backup created: index.php.bak")
-        # Remove default index.php to prevent executing standard CyberPanel info scripts
-        if os.path.exists(index_php):
-            os.remove(index_php)
-            print("  -> Removed default index.php")
+TEMPLATE_INDEX_PATH = '/usr/local/CyberCP/index.html'
+
+if os.path.exists(DEFAULT_HTML_DIR) or os.path.exists(TEMPLATE_INDEX_PATH):
+    print("[4/5] Overwriting default landing pages and templates...")
+    
+    # Overwrite OpenLiteSpeed default landing page
+    if os.path.exists(DEFAULT_HTML_DIR):
+        try:
+            index_php = os.path.join(DEFAULT_HTML_DIR, 'index.php')
+            index_html = os.path.join(DEFAULT_HTML_DIR, 'index.html')
             
-        # Write blank/generic index.html
-        with open(index_html, 'w', encoding='utf-8') as f:
-            f.write('<html><head><title>Not Found</title></head><body><h1>404 Not Found</h1></body></html>\n')
-        print("  -> Created generic index.html")
-    except Exception as e:
-        print(f"  -> Error overwriting landing page: {e}")
+            # Backup index.php if not already backed up
+            if os.path.exists(index_php) and not os.path.exists(index_php + '.bak'):
+                shutil.copy2(index_php, index_php + '.bak')
+                print("  -> Backup created: index.php.bak")
+            # Remove default index.php to prevent executing standard CyberPanel info scripts
+            if os.path.exists(index_php):
+                os.remove(index_php)
+                print("  -> Removed default index.php")
+                
+            # Write blank/generic index.html
+            with open(index_html, 'w', encoding='utf-8') as f:
+                f.write('<html><head><title>Not Found</title></head><body><h1>404 Not Found</h1></body></html>\n')
+            print("  -> Created generic index.html in default OLS directory")
+        except Exception as e:
+            print(f"  -> Error overwriting OLS landing page: {e}")
+            
+    # Overwrite CyberPanel new website index.html template
+    if os.path.exists(TEMPLATE_INDEX_PATH):
+        try:
+            # Backup default index template if not already backed up
+            if not os.path.exists(TEMPLATE_INDEX_PATH + '.bak'):
+                shutil.copy2(TEMPLATE_INDEX_PATH, TEMPLATE_INDEX_PATH + '.bak')
+                print("  -> Backup created: CyberCP/index.html.bak")
+            
+            # Write generic HTML template
+            generic_template = """<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Under Construction</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 150px; background-color: #f7f9fb; color: #202938; }
+        h1 { font-size: 50px; font-weight: 300; margin-bottom: 10px; }
+        p { font-size: 20px; color: #6b7783; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <h1>Website Under Construction</h1>
+    <p>Please upload your website files to the public_html directory.</p>
+</body>
+</html>
+"""
+            with open(TEMPLATE_INDEX_PATH, 'w', encoding='utf-8') as f:
+                f.write(generic_template)
+            print("  -> Overwrote default CyberPanel website template index.html")
+        except Exception as e:
+            print(f"  -> Error overwriting default template index.html: {e}")
 else:
-    print("  -> Default landing page directory not found (skipping).")
+    print("  -> Default landing pages and templates not found (skipping).")
 
 # 5. Restart CyberPanel Service
 print("[5/5] Restarting CyberPanel Service (lscpd)...")
