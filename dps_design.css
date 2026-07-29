@@ -1,3 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body, html, #main-content, .navbar, .modal-content, .btn, input, select, textarea, th, td, label, p, a, div, span, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f7f9fb;
+}
+::-webkit-scrollbar-thumb {
+    background: #e1e8e3;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #32b561;
+}
+
 .notification-shown.ai-scanner-shown .htaccess-feature-banner {
     display: none !important;
 }
@@ -581,29 +603,40 @@ img.website-screenshot,
     padding: 2px 10px !important;
 }
 
+#navBar .nav-item {
+    margin-right: 6px !important;
+}
+
 #navBar .nav-link {
-    color: var(--text-primary, #202938) !important;
-    font-weight: 600 !important;
-    font-size: 13px !important;
+    background: #ffffff !important;
+    border: 1px solid #e1e8e3 !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
     border-radius: 6px !important;
-    padding: 6px 12px !important;
-    transition: all 0.2s ease !important;
+    color: var(--text-primary, #202938) !important;
+    font-weight: 500 !important;
+    font-size: 12.5px !important;
+    padding: 7px 14px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 #navBar .nav-link i {
     color: var(--dps-navy, #151577) !important;
-    margin-right: 4px !important;
+    font-size: 14px !important;
+    margin-right: 5px !important;
 }
 
 #navBar .nav-link:hover {
     background: var(--dps-green-soft, #e8f6ed) !important;
+    border-color: #c7e8d1 !important;
     color: var(--dps-navy, #151577) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
 }
 
 #treeView .content-box {
     background: #ffffff !important;
     border: 1px solid var(--border-color, #e1e8e3) !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
 }
 
@@ -613,12 +646,14 @@ img.website-screenshot,
 }
 
 #currentPath {
-    border: 1px solid var(--border-color, #e1e8e3) !important;
-    background: var(--bg-primary, #f7f9fb) !important;
+    border: 1px solid #c7e8d1 !important;
+    background: var(--dps-green-soft, #e8f6ed) !important;
     font-family: monospace !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     color: var(--dps-navy, #151577) !important;
     font-weight: 600 !important;
+    padding: 10px 14px !important;
+    font-size: 13.5px !important;
 }
 
 #treeView a {
@@ -667,8 +702,18 @@ img.website-screenshot,
     letter-spacing: 0.5px !important;
 }
 
+.col-sm-9 table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border-color, #e1e8e3) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01) !important;
+}
+
 .col-sm-9 table tbody tr {
     border-bottom: 1px solid var(--border-color, #e1e8e3) !important;
+    transition: background 0.15s ease !important;
 }
 
 .col-sm-9 table tbody tr:hover {
@@ -676,7 +721,7 @@ img.website-screenshot,
 }
 
 .col-sm-9 table td {
-    padding: 10px 14px !important;
+    padding: 12px 16px !important;
     vertical-align: middle !important;
     font-size: 13.5px !important;
 }
@@ -688,4 +733,85 @@ img.website-screenshot,
 .col-sm-9 table td i.fa-file,
 .col-sm-9 table td i.fa-file-text-o {
     color: var(--dps-green, #32b561) !important;
+}
+
+/* Modals Redesign */
+.modal-content {
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    overflow: hidden !important;
+}
+
+.modal-header {
+    background: var(--dps-navy, #151577) !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 16px 24px !important;
+}
+
+.modal-header h4, .modal-header h5, .modal-title {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+.modal-header .close {
+    color: #ffffff !important;
+    opacity: 0.8 !important;
+    text-shadow: none !important;
+}
+
+.modal-header .close:hover {
+    opacity: 1 !important;
+}
+
+.modal-body {
+    padding: 24px !important;
+    background: #ffffff !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color, #e1e8e3) !important;
+    background: var(--bg-primary, #f7f9fb) !important;
+    padding: 16px 24px !important;
+}
+
+.modal-body input.form-control, .modal-body select.form-control {
+    border-radius: 6px !important;
+    border: 1px solid var(--border-color, #e1e8e3) !important;
+    padding: 10px 14px !important;
+    height: auto !important;
+    font-size: 14px !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal-body input.form-control:focus, .modal-body select.form-control:focus {
+    border-color: var(--dps-green, #32b561) !important;
+    box-shadow: 0 0 0 3px rgba(50, 181, 97, 0.15) !important;
+}
+
+/* Custom styled buttons and focus states */
+.form-control:focus, input:focus, select:focus, textarea:focus {
+    border-color: var(--dps-green, #32b561) !important;
+    box-shadow: 0 0 0 3px rgba(50, 181, 97, 0.15) !important;
+    outline: 0 !important;
+}
+
+.btn {
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn:hover {
+    transform: translateY(-0.5px) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+}
+
+.panel, .card {
+    border-radius: 12px !important;
+    border: 1px solid var(--border-color, #e1e8e3) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01) !important;
 }

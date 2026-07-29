@@ -181,17 +181,17 @@ print("[3/5] White-labeling HTML templates...")
 TEMPLATES_TO_PATCH = [
     {
         'path': '/usr/local/CyberCP/loginSystem/templates/loginSystem/login.html',
-        'target': r'<title>\s*Login\s*-\s*CyberPanel\s*</title>',
+        'target': r'<title>.*?</title>',
         'replacement': '<title> Login - DPS Portal </title>'
     },
     {
         'path': '/usr/local/CyberCP/baseTemplate/templates/baseTemplate/index.html',
-        'target': r'<title>\s*{%\s*block\s+title\s*%}\s*CyberPanel\s*{%\s*endblock\s*%}\s*</title>',
+        'target': r'<title>.*?</title>',
         'replacement': '<title>{% block title %}DPS Portal{% endblock %}</title>'
     },
     {
         'path': '/usr/local/CyberCP/baseTemplate/templates/baseTemplate/FileManager.html',
-        'target': r'<title>\s*{%\s*trans\s+[\'"]File\s+Manager\s*-\s*CyberPanel[\'"]\s*%}\s*</title>',
+        'target': r'<title>.*?</title>',
         'replacement': '<title>{% trans "File Manager" %}</title>'
     }
 ]
@@ -202,14 +202,14 @@ for t in TEMPLATES_TO_PATCH:
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            if re.search(t['target'], content, flags=re.IGNORECASE):
+            if re.search(t['target'], content, flags=re.IGNORECASE | re.DOTALL):
                 # Backup if not exists
                 bak_path = path + ".bak"
                 if not os.path.exists(bak_path):
                     shutil.copy2(path, bak_path)
                     print(f"  -> Backup created: {os.path.basename(bak_path)}")
                 
-                content = re.sub(t['target'], t['replacement'], content, flags=re.IGNORECASE)
+                content = re.sub(t['target'], t['replacement'], content, flags=re.IGNORECASE | re.DOTALL)
                 with open(path, 'w', encoding='utf-8') as f:
                     f.write(content)
                 print(f"  -> White-labeled: {os.path.basename(path)}")
